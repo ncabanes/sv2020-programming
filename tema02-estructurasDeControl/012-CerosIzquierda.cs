@@ -11,10 +11,10 @@ class Ej_12
 {
     static void Main()
     {
-		int n;		
-		Console.WriteLine("Introduce un número entero");
-		n = Convert.ToInt32(Console.ReadLine());
-		
+        int n;      
+        Console.WriteLine("Introduce un número entero");
+        n = Convert.ToInt32(Console.ReadLine());
+        
         if (n < 10)
             Console.WriteLine("00{0}", n);
         else if (n < 100)
@@ -22,5 +22,5 @@ class Ej_12
         else
             Console.WriteLine("{0}",n);
 
-	  }
-	}
+      }
+    }
