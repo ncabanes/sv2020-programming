@@ -71,14 +71,14 @@ class Ejercicio66
                 case 3:
                     Console.Write("Borrar el dato de la posición: ");
                     posicion= Convert.ToInt32(Console.ReadLine());
-                    for (int i =  posicion-1; i < cantidad-1;i++)
+                    for (int i =  posicion-1; i < cantidad-1; i++)
                         datos[i]= datos[i+1];
                     cantidad--;
                     break;
                     
                 case 4: 
                     Console.Write("Datos en orden... ");
-                    for (int i = 0; i<=(cantidad-1);i++)
+                    for (int i = 0; i< cantidad; i++)
                         Console.WriteLine("{0} ", datos[i]);
                     Console.WriteLine();
                     break;
@@ -95,7 +95,7 @@ class Ejercicio66
                     double maximo = datos[0];
                     for (int i = 1; i < cantidad; i++)
                         if (datos[i] > maximo)
-                            maximo= datos[i];
+                            maximo = datos[i];
                     Console.WriteLine("El máximo es {0}", maximo);
                     break;
 
@@ -103,7 +103,7 @@ class Ejercicio66
                     double minimo = datos[0];
                     for (int i = 1; i < cantidad; i++)
                         if (datos[i] < minimo)
-                            minimo= datos[i];   
+                            minimo = datos[i];   
                     Console.WriteLine("El mínimo es {0}", minimo);
                     break;
 
