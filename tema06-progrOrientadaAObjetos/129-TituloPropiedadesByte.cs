@@ -14,11 +14,11 @@ class Titulo
     private byte x, y;
     
     
-    public Titulo(byte nuevaX, byte nuevaY, 
+    public Titulo(int nuevaX, int nuevaY, 
         string nuevoTexto)
     {
-        X = nuevaX;
-        Y = nuevaY;
+        X = (byte) nuevaX;
+        Y = (byte) nuevaY;
         Texto = nuevoTexto;
     }
     public int X
