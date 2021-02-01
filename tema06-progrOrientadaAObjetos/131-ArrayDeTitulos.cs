@@ -6,7 +6,7 @@ using System;
  * prueba mostrará todos ellos. Los dos títulos subrayados no usarán el mismo
  * símbolo para subrayar. */
 
-//Iván Fernández Pastor
+//Iván (...)
 
 class Titulo
 {
