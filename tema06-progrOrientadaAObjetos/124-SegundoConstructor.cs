@@ -69,7 +69,7 @@ class TituloCentrado : Titulo
         
     public TituloCentrado(int linea, string input)
     {
-         x = 80/2;
+         x = 40-texto.Length/2;
          y = linea;
          texto = input;
     }
