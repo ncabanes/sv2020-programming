@@ -360,11 +360,13 @@ class Ejercicio_77
                     // Espacios intermedios redundantes
                     for (int x = 0; x < ingreso.Count; x++)
                     {
-                        while (ingreso[x].descripcion.Contains("  "))
+                        contDomestica c2 = ingreso[x];
+                        while (c2.descripcion.Contains("  "))
                         {
-                            contDomestica c2 = ingreso[x]; c2.descripcion =
-                                ingreso[x].descripcion.Replace("  ", " "); ingreso[x] = c2;
+                             c2.descripcion =
+                                c2.descripcion.Replace("  ", " "); 
                         }
+                        ingreso[x] = c2;
                     }
 
                     // Corregir mayúscuas
