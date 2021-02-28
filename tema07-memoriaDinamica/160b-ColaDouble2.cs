@@ -39,10 +39,15 @@ class Cola1
         while (!terminar);
 
         Console.WriteLine("DATOS:");
+        double suma = 0;
+        int cantidad = miCola.Count;
         while (miCola.Count > 0)
         {
             double dato = miCola.Dequeue();
+            suma += dato;
             Console.WriteLine(dato);
         }
+        Console.WriteLine("Suma: " + suma);
+        Console.WriteLine("Media: " + suma/cantidad);
     }
 }
