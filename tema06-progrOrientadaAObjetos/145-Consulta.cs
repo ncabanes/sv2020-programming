@@ -349,7 +349,7 @@ class Consulta
                 if (pacientes[i].GetApellidosYNombre().ToUpper().
                     Contains(busqueda.ToUpper()))
                 {
-                    Console.WriteLine(pacientes[i].ToString());
+                    Console.WriteLine(pacientes[i]);
                     encontrado = true;
                 }
             }
@@ -456,7 +456,7 @@ class Consulta
     {
         for (byte i = 0; i < cantidadPacientes; i++)
         {
-            Console.WriteLine(pacientes[i].ToString());
+            Console.WriteLine(pacientes[i]);
         }
     }
 
@@ -472,8 +472,8 @@ class Consulta
 
     private void MostrarMedicos()
     {
-        Console.WriteLine(" - " + med_A.ToString());
-        Console.WriteLine(" - " + med_B.ToString());
+        Console.WriteLine(" - " + med_A);
+        Console.WriteLine(" - " + med_B);
     }
 
     private Medico DevolverMedico(byte id)
