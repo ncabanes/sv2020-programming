@@ -1,4 +1,4 @@
-//Alumno: Verónica de la Mata Gironés
+//Alumno: Verónica (...)
 /*194. Muestra información sobre el sistema: versión de Windows, versión de 
 Punto Net, nombre de usuario actual, carpeta de documentos y espacio libre y 
 espacio total en todas las particiones de disco (Busca información sobre 
