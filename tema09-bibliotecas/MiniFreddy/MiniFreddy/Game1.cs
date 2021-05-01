@@ -21,6 +21,7 @@ namespace MiniFreddy
         private Vector2 posicionLlave;
 
         private int puntos = 0;
+        private SpriteFont fuente;
         private System.Random random;
 
         public Game1()
@@ -53,6 +54,7 @@ namespace MiniFreddy
             personaje = Content.Load<Texture2D>("personaje");
             enemigo = Content.Load<Texture2D>("enemigo");
             llave = Content.Load<Texture2D>("llave");
+            fuente = Content.Load<SpriteFont>("Bitwise");
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,7 +65,7 @@ namespace MiniFreddy
 
             // Movimiento del personaje, con teclado
             var estadoTeclado = Keyboard.GetState();
-
+            
             if (estadoTeclado.IsKeyDown(Keys.Left)) 
                 posicionPersonaje.X -= velocidadPersonaje * 
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -131,6 +133,9 @@ namespace MiniFreddy
                 new Rectangle((int)posicionLlave.X, (int)posicionLlave.Y,
                     llave.Width, llave.Height),
                 Color.White);
+            _spriteBatch.DrawString(fuente, 
+                "Puntos: " + puntos, 
+                new Vector2(50, 10), Color.Yellow);
             _spriteBatch.End();
 
             base.Draw(gameTime);

@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:enemigo.png
 
+#begin Bitwise.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Bitwise.spritefont
+
 #begin llave.png
 /importer:TextureImporter
 /processor:TextureProcessor
