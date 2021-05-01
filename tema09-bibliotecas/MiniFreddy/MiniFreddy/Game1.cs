@@ -9,16 +9,24 @@ namespace MiniFreddy
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Texture2D personaje;
+        private Vector2 posicionPersonaje;
+        private int velocidadPersonaje = 200;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            _graphics.PreferredBackBufferWidth = 1280; 
+            _graphics.PreferredBackBufferHeight = 720; 
+            _graphics.ApplyChanges();
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            posicionPersonaje = new Vector2(400, 500);
 
             base.Initialize();
         }
@@ -26,25 +34,46 @@ namespace MiniFreddy
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            personaje = Content.Load<Texture2D>("personaje");
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                    || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            var estadoTeclado = Keyboard.GetState();
+
+            if (estadoTeclado.IsKeyDown(Keys.Left)) 
+                posicionPersonaje.X -= velocidadPersonaje * 
+                    (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (estadoTeclado.IsKeyDown(Keys.Right))
+                posicionPersonaje.X += velocidadPersonaje *
+                    (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (estadoTeclado.IsKeyDown(Keys.Up))
+                posicionPersonaje.Y -= velocidadPersonaje *
+                    (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (estadoTeclado.IsKeyDown(Keys.Down))
+                posicionPersonaje.Y += velocidadPersonaje *
+                    (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(new Color(32, 32, 32));
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin(); 
+            _spriteBatch.Draw(personaje,
+                new Rectangle((int)posicionPersonaje.X, (int)posicionPersonaje.Y, 
+                    personaje.Width, personaje.Height),
+                Color.White);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
