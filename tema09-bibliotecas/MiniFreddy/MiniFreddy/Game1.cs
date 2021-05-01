@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace MiniFreddy
 {
@@ -24,6 +25,13 @@ namespace MiniFreddy
         private SpriteFont fuente;
         private System.Random random;
 
+        private const int altoMapa = 15, anchoMapa = 26;
+        private int anchoTile = 48, altoTile = 48;
+        private int margenIzqdo = 0, margenSuperior = 0;
+        private string[] datosNivel = new string[altoMapa];
+        private Texture2D pared;
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -35,6 +43,24 @@ namespace MiniFreddy
             IsMouseVisible = true;
 
             random = new System.Random();
+            datosNivel = new string[] {
+                "L        V T    T      V L",
+                "L               V        L",
+                "L                        L",
+                "L                    A   L",
+                "LSS  SSSSSSSSSFFFF SFSSSSL",
+                "L                       VL",
+                "LSSS                     L",
+                "L                L LL    L",
+                "LSSSS   DDDDDDDDDD DDD   L",
+                "L                      SSL",
+                "L                        L",
+                "L            A       FSSSL",
+                "L    SSSSSSSSSSSSS SS  PPL",
+                "L                      PPL",
+                "LLLLLLLLLLLLLLLLLLLLLLLLLL"
+            };
+
         }
 
         protected override void Initialize()
@@ -54,7 +80,8 @@ namespace MiniFreddy
             personaje = Content.Load<Texture2D>("personaje");
             enemigo = Content.Load<Texture2D>("enemigo");
             llave = Content.Load<Texture2D>("llave");
-            fuente = Content.Load<SpriteFont>("Bitwise");
+            pared = Content.Load<Texture2D>("pared");
+            fuente = Content.Load<SpriteFont>("Bitwise");            
         }
 
         protected override void Update(GameTime gameTime)
@@ -65,15 +92,26 @@ namespace MiniFreddy
 
             // Movimiento del personaje, con teclado
             var estadoTeclado = Keyboard.GetState();
-            
-            if (estadoTeclado.IsKeyDown(Keys.Left)) 
-                posicionPersonaje.X -= velocidadPersonaje * 
+
+            if (estadoTeclado.IsKeyDown(Keys.Left))
+            {
+                float nuevaX = posicionPersonaje.X - velocidadPersonaje *
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (EsPosibleMover((int) nuevaX, (int) posicionPersonaje.Y,
+                        personaje.Width, personaje.Height))
+                    posicionPersonaje.X = nuevaX;
+            }
 
             if (estadoTeclado.IsKeyDown(Keys.Right))
-                posicionPersonaje.X += velocidadPersonaje *
+            {
+                float nuevaX = posicionPersonaje.X + velocidadPersonaje *
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (EsPosibleMover((int)nuevaX, (int)posicionPersonaje.Y,
+                        personaje.Width, personaje.Height))
+                    posicionPersonaje.X = nuevaX;
+            }
 
+            // TO DO: Comprobar colisiones en vertical
             if (estadoTeclado.IsKeyDown(Keys.Up))
                 posicionPersonaje.Y -= velocidadPersonaje *
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -117,11 +155,52 @@ namespace MiniFreddy
             base.Update(gameTime);
         }
 
+        private bool EsPosibleMover(int x, int y, int ancho, int alto)
+        {
+            for (int fila = 0; fila < altoMapa; fila++)
+            {
+                for (int colum = 0; colum < anchoMapa; colum++)
+                {
+                    int posX = colum * anchoTile + margenIzqdo;
+                    int posY = fila * altoTile + margenSuperior;
+                    switch (datosNivel[fila][colum])
+                    {
+                        case 'L':
+
+                            if (new Rectangle(x, y, ancho, alto)
+                                    .Intersects(new Rectangle(
+                                        posX, posY, anchoTile, altoTile)))
+                                return false;
+                            break;
+                    }
+                }
+            }
+            return true;
+        }
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(new Color(32, 32, 32));
 
             _spriteBatch.Begin();
+
+            for (int fila = 0; fila < altoMapa; fila++)
+            {
+                for (int colum = 0; colum < anchoMapa; colum++)
+                {
+                    int posX = colum * anchoTile + margenIzqdo;
+                    int posY = fila * altoTile + margenSuperior;
+                    switch (datosNivel[fila][colum])
+                    {
+                        case 'L':
+                            _spriteBatch.Draw(pared,
+                                new Rectangle(posX, posY, pared.Width, pared.Height), 
+                                Color.White);
+                            break;
+                    }
+                }
+            }
+
             _spriteBatch.Draw(enemigo, 
                 new Rectangle((int)posicionEnemigo.X, (int)posicionEnemigo.Y, 
                     enemigo.Width, enemigo.Height), Color.White);
