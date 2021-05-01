@@ -17,6 +17,12 @@ namespace MiniFreddy
         private Vector2 posicionEnemigo; 
         private Vector2 velocidadEnemigo;
 
+        private Texture2D llave;
+        private Vector2 posicionLlave;
+
+        private int puntos = 0;
+        private System.Random random;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -26,6 +32,8 @@ namespace MiniFreddy
             _graphics.PreferredBackBufferHeight = 720; 
             _graphics.ApplyChanges();
             IsMouseVisible = true;
+
+            random = new System.Random();
         }
 
         protected override void Initialize()
@@ -35,6 +43,8 @@ namespace MiniFreddy
             posicionPersonaje = new Vector2(400, 500);
             posicionEnemigo = new Vector2(300, 100);
             velocidadEnemigo = new Vector2(150, 100);
+            posicionLlave = new Vector2( 
+                random.Next(20, 1200), random.Next(20, 700));
         }
 
         protected override void LoadContent()
@@ -42,6 +52,7 @@ namespace MiniFreddy
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             personaje = Content.Load<Texture2D>("personaje");
             enemigo = Content.Load<Texture2D>("enemigo");
+            llave = Content.Load<Texture2D>("llave");
         }
 
         protected override void Update(GameTime gameTime)
@@ -81,12 +92,25 @@ namespace MiniFreddy
             if ((posicionEnemigo.Y < 20) || (posicionEnemigo.Y > 700))
                 velocidadEnemigo.Y = -velocidadEnemigo.Y;
 
-            // Comprobación de colisiones
+            // Comprobación de colisiones con enemigo
             if (new Rectangle((int)posicionPersonaje.X, (int)posicionPersonaje.Y, 
                 personaje.Width, personaje.Height).Intersects(
                     new Rectangle((int)posicionEnemigo.X, (int)posicionEnemigo.Y, 
                     enemigo.Width, enemigo.Height))) 
                 Exit();
+
+            // Comprobación de colisiones con llave
+            if (new Rectangle((int)posicionPersonaje.X, (int)posicionPersonaje.Y,
+                personaje.Width, personaje.Height).Intersects(
+                    new Rectangle((int)posicionLlave.X, (int)posicionLlave.Y,
+                    llave.Width, llave.Height)))
+            {
+                puntos += 10;
+                posicionLlave = new Vector2(
+                    random.Next(20, 1200), random.Next(20, 700));
+                velocidadEnemigo.X *= 1.2f;
+                velocidadEnemigo.Y *= 1.2f;
+            }
 
             base.Update(gameTime);
         }
@@ -102,6 +126,10 @@ namespace MiniFreddy
             _spriteBatch.Draw(personaje,
                 new Rectangle((int)posicionPersonaje.X, (int)posicionPersonaje.Y, 
                     personaje.Width, personaje.Height),
+                Color.White);
+            _spriteBatch.Draw(llave,
+                new Rectangle((int)posicionLlave.X, (int)posicionLlave.Y,
+                    llave.Width, llave.Height),
                 Color.White);
             _spriteBatch.End();
 
