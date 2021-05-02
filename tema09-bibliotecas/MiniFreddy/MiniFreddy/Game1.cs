@@ -71,7 +71,7 @@ namespace MiniFreddy
             posicionEnemigo = new Vector2(300, 100);
             velocidadEnemigo = new Vector2(150, 100);
             posicionLlave = new Vector2( 
-                random.Next(20, 1200), random.Next(20, 700));
+                random.Next(1000, 1100), random.Next(100, 600));
         }
 
         protected override void LoadContent()
@@ -90,10 +90,14 @@ namespace MiniFreddy
                     || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // Movimiento del personaje, con teclado
+            // Movimiento del personaje, con teclado y gamepad
             var estadoTeclado = Keyboard.GetState();
+            var estadoGamePad = GamePad.GetState(PlayerIndex.One);
 
-            if (estadoTeclado.IsKeyDown(Keys.Left))
+            if (estadoTeclado.IsKeyDown(Keys.Left)
+                || estadoGamePad.DPad.Left > 0
+                || estadoGamePad.ThumbSticks.Right.X < 0
+                || estadoGamePad.ThumbSticks.Left.X < 0)
             {
                 float nuevaX = posicionPersonaje.X - velocidadPersonaje *
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -102,9 +106,13 @@ namespace MiniFreddy
                     posicionPersonaje.X = nuevaX;
             }
 
-            if (estadoTeclado.IsKeyDown(Keys.Right))
-            {
-                float nuevaX = posicionPersonaje.X + velocidadPersonaje *
+            if (estadoTeclado.IsKeyDown(Keys.Right)
+                || estadoGamePad.DPad.Right > 0
+                || estadoGamePad.ThumbSticks.Right.X > 0
+                || estadoGamePad.ThumbSticks.Left.X > 0)
+
+                {
+                    float nuevaX = posicionPersonaje.X + velocidadPersonaje *
                     (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (EsPosibleMover((int)nuevaX, (int)posicionPersonaje.Y,
                         personaje.Width, personaje.Height))
@@ -147,7 +155,7 @@ namespace MiniFreddy
             {
                 puntos += 10;
                 posicionLlave = new Vector2(
-                    random.Next(20, 1200), random.Next(20, 700));
+                    random.Next(1000, 1100), random.Next(100, 600));
                 velocidadEnemigo.X *= 1.2f;
                 velocidadEnemigo.Y *= 1.2f;
             }
