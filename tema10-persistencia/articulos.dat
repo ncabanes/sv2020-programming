@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ArrayOfArticulo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Articulo>
+    <Descripcion>AMD Ryzen 5 3600 - Procesador con disipador de calor Wraith Stealth</Descripcion>
+    <PrecioActual>196</PrecioActual>
+    <Url>https://www.amazon.es/AMD-Ryzen-3600-Procesador-disipador/dp/B07STGGQ18/ref=sr_1_1?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;crid=2I6E8E9AFX96N&amp;dchild=1&amp;keywords=amd+ryzen+5+3600&amp;qid=1620388538&amp;sprefix=AMD+Ry%2Caps%2C197&amp;sr=8-1</Url>
+  </Articulo>
+  <Articulo>
+    <Descripcion>ELEGOO Mars 2 Impresora 3D Mono MSLA</Descripcion>
+    <PrecioActual>200</PrecioActual>
+    <Url>https://www.amazon.es/dp/B07K32PVWF/?coliid=IA6TPDZT68YUG&amp;colid=2P7BJHIEMVK7V&amp;psc=1</Url>
+  </Articulo>
+  <Articulo>
+    <Descripcion>LEGO Cuentos e Historias: Anna y Elsa</Descripcion>
+    <PrecioActual>19.9</PrecioActual>
+    <Url>https://www.amazon.es/LEGO-Disney-Princess-Cuentos-Historias/dp/B07W6QB979/ref=sr_1_4?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&amp;crid=1E3ZET3CGVZL9&amp;dchild=1&amp;keywords=lego+cuentos+e+historias&amp;qid=1620389090&amp;sprefix=LEGO+Cuentos+%2Caps%2C189&amp;sr=8-4</Url>
+  </Articulo>
+</ArrayOfArticulo>
